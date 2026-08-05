@@ -9,5 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="ja"><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-4KHX7E80KP"></script><script dangerouslySetInnerHTML={{__html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4KHX7E80KP');`}} /></head><body>{children}</body></html>;
+  return <html lang="ja"><head>
+  <meta name="google-site-verification" content="mVS-ANEQy8B5vK5Qzxhb5O96UBe8-Qc43tJRuAxTnjQ" /><script async src="https://www.googletagmanager.com/gtag/js?id=G-4KHX7E80KP"></script><script dangerouslySetInnerHTML={{__html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4KHX7E80KP');`}} /></head><body>{children}</body></html>;
 }
