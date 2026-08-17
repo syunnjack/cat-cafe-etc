@@ -48,4 +48,18 @@ export function PetCafePage({mode}:{mode:Mode}){
  </main>
 }
 
-export default function Home(){return <main className="portal"><div className="portal-intro"><p className="eyebrow">PET BIYORI</p><h1>どちらの気配に、<br/>会いにいきますか。</h1><p>犬のまっすぐさも、猫の静けさも知っている。<br/>ひとりの時間に寄り添う場所を、動物別にご案内します。</p></div><div className="portal-choices"><a className="portal-card cat-choice" href="/cat-cafe/"><span>CAT CAFE GUIDE</span><div><small>静かな気配に癒されたい日</small><h2>猫派ページへ</h2><b>→</b></div></a><a className="portal-card dog-choice" href="/dog-cafe/"><span>DOG CAFE GUIDE</span><div><small>まっすぐな笑顔に会いたい日</small><h2>犬派ページへ</h2><b>→</b></div></a></div></main>}
+const SITE_URL="https://petbiyori.net";
+const SITE_NAME="ペット日和";
+const SITE_DESCRIPTION="猫派と犬派を切り替えて探せる、ひとり客目線のペットカフェ案内。";
+
+// 検索エンジンとAIにサイトの素性を渡す。JSON.stringifyはXSSを除去しないため、
+// Next.jsの推奨どおり "<" をユニコード表記に置き換えてから埋め込む。
+const jsonLd={
+ "@context":"https://schema.org",
+ "@graph":[
+  {"@type":"WebSite","@id":`${SITE_URL}/#website`,url:SITE_URL,name:SITE_NAME,description:SITE_DESCRIPTION,inLanguage:"ja",publisher:{"@id":`${SITE_URL}/#organization`}},
+  {"@type":"Organization","@id":`${SITE_URL}/#organization`,name:SITE_NAME,url:SITE_URL,description:SITE_DESCRIPTION}
+ ]
+};
+
+export default function Home(){return <main className="portal"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd).replace(/</g,"\\u003c")}} /><div className="portal-intro"><p className="eyebrow">PET BIYORI</p><h1>どちらの気配に、<br/>会いにいきますか。</h1><p>犬のまっすぐさも、猫の静けさも知っている。<br/>ひとりの時間に寄り添う場所を、動物別にご案内します。</p></div><div className="portal-choices"><a className="portal-card cat-choice" href="/cat-cafe/"><span>CAT CAFE GUIDE</span><div><small>静かな気配に癒されたい日</small><h2>猫派ページへ</h2><b>→</b></div></a><a className="portal-card dog-choice" href="/dog-cafe/"><span>DOG CAFE GUIDE</span><div><small>まっすぐな笑顔に会いたい日</small><h2>犬派ページへ</h2><b>→</b></div></a></div></main>}
