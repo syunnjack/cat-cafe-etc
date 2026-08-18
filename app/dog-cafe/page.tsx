@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PetCafePage } from "../page";
 
-const url = "https://petbiyori.net/dog-cafe/";
+const url = "https://petbiyori.net/dog-cafe";
 export const metadata: Metadata = {
   title: "ひとりで行けるドッグカフェ案内｜犬日和",
   description: "東京・神奈川のドッグカフェを、過ごし方、混雑、犬との距離など、ひとり客の目線で紹介します。",

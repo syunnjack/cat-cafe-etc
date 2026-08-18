@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   description: "猫派と犬派を切り替えて探せる、ひとり客目線のペットカフェ案内。",
   metadataBase: new URL("https://petbiyori.net"),
   alternates: { canonical: "/" },
+  // SNSやチャットに貼られたときに、タイトルと説明が出るようにする。
+  // 子ページ側で openGraph を指定すると、その項目だけ上書きされる。
+  openGraph: {
+    title: "ペット日和｜ひとりで行ける猫カフェ・ドッグカフェ案内",
+    description: "猫派と犬派を切り替えて探せる、ひとり客目線のペットカフェ案内。",
+    url: "https://petbiyori.net",
+    siteName: "ペット日和",
+    type: "website",
+    locale: "ja_JP",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
