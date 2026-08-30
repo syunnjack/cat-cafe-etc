@@ -62,4 +62,26 @@ const jsonLd={
  ]
 };
 
-export default function Home(){return <main className="portal"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd).replace(/</g,"\\u003c")}} /><div className="portal-intro"><p className="eyebrow">PET BIYORI</p><h1>どちらの気配に、<br/>会いにいきますか。</h1><p>犬のまっすぐさも、猫の静けさも知っている。<br/>ひとりの時間に寄り添う場所を、動物別にご案内します。</p></div><div className="portal-choices"><a className="portal-card cat-choice" href="/cat-cafe"><span>CAT CAFE GUIDE</span><div><small>静かな気配に癒されたい日</small><h2>猫派ページへ</h2><b>→</b></div></a><a className="portal-card dog-choice" href="/dog-cafe"><span>DOG CAFE GUIDE</span><div><small>まっすぐな笑顔に会いたい日</small><h2>犬派ページへ</h2><b>→</b></div></a></div></main>}
+// トップは入口の2枚だけで本文が180字しかなく、何を載せているサイトなのかが
+// HTMLから読み取れなかった。掲載件数と対象地域は content から数える。
+// 手で書くと、店を足したときに数字だけ古くなる。
+const catShops=content.cat.shops, dogShops=content.dog.shops;
+const prefectures=Array.from(new Set([...catShops,...dogShops].map(s=>s[1])));
+
+export default function Home(){return <main className="portal"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd).replace(/</g,"\\u003c")}} /><div className="portal-intro"><p className="eyebrow">PET BIYORI</p><h1>どちらの気配に、<br/>会いにいきますか。</h1><p>犬のまっすぐさも、猫の静けさも知っている。<br/>ひとりの時間に寄り添う場所を、動物別にご案内します。</p></div><div className="portal-choices"><a className="portal-card cat-choice" href="/cat-cafe"><span>CAT CAFE GUIDE</span><div><small>静かな気配に癒されたい日</small><h2>猫派ページへ</h2><b>→</b></div></a><a className="portal-card dog-choice" href="/dog-cafe"><span>DOG CAFE GUIDE</span><div><small>まっすぐな笑顔に会いたい日</small><h2>犬派ページへ</h2><b>→</b></div></a></div>
+  <section className="portal-about">
+    <h2>このサイトについて</h2>
+    <p>ペット日和は、ひとりで入りやすい猫カフェとドッグカフェを{prefectures.length}都道府県から{catShops.length+dogShops.length}店ご案内しています（猫カフェ{catShops.length}店、ドッグカフェ{dogShops.length}店）。掲載地域は{prefectures.join("、")}です。</p>
+    <h2>掲載しているお店の選び方</h2>
+    <p>すべて実在する店舗です。店名、住所、料金、営業時間は各店の公式サイトで確認し、確認日をページに記載しています。口コミの傾向は、じゃらん、Yahoo!マップ、食べログなど公開されているレビューを要約し、出典へのリンクを店舗ごとに添えています。良い評価だけでなく、混雑しやすい時間帯や距離感の指摘も、書かれていればそのまま載せます。</p>
+    <p>料金と営業時間は変わります。来店前に、各店の公式サイトで最新の情報をご確認ください。</p>
+    <h2>ひとりで行くときに見ているところ</h2>
+    <ul>
+      <li>ひとりでも居心地が保てるか（席の作り、滞在時間の区切り方）</li>
+      <li>動物との距離のとり方。追わずに待てる雰囲気かどうか</li>
+      <li>駅からの近さと、立ち寄りやすい営業時間</li>
+      <li>保護猫・保護犬の店かどうか。里親募集をしている場合はその旨</li>
+    </ul>
+    <p><small>当サイトは広告・アフィリエイトリンクを掲載しています。掲載の可否や順序を広告主が決めることはありません。</small></p>
+  </section>
+</main>}
