@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { sortedEntries } from "./diary/entries";
 type Mode = "cat" | "dog";
 
 const content = {
@@ -31,13 +32,15 @@ const content = {
 const products = [["◌","表情を、やさしく残す","小型ミラーレス入門セット","参考 ¥89,800"],["⌁","毛を気にせず、余韻を持ち帰る","携帯クリーナー＆ケアセット","参考 ¥3,280"],["▤","会えない夜に、記録を一冊に","写真日記フォトブック","参考 ¥2,980〜"]];
 
 export function PetCafePage({mode}:{mode:Mode}){
+ // 日記を1本も書いていないうちはリンクを出さない。空のページへ送らないため。
+ const diaryCount=sortedEntries(mode).length;
  const [area,setArea]=useState("すべて"),[quiet,setQuiet]=useState(false),[saved,setSaved]=useState<string[]>([]),[quiz,setQuiz]=useState(false); const c=content[mode];
  const areas=useMemo(()=>["すべて",...Array.from(new Set(c.shops.map(s=>s[1])))],[c]);
  const shops=useMemo(()=>c.shops.filter(s=>area==="すべて"||s[1]===area),[c,area]);
  const toggle=(n:string)=>setSaved(s=>s.includes(n)?s.filter(x=>x!==n):[...s,n]);
  return <main className={`${mode}-mode`}>
   <div className="species-switch" aria-label="猫派ページと犬派ページの切り替え"><span>あなたはどっち派？</span><a className={mode==="cat"?"selected":""} href="/cat-cafe">🐈 猫派ページ</a><a className={mode==="dog"?"selected":""} href="/dog-cafe">🐕 犬派ページ</a></div>
-  <header className="nav"><a className="brand" href="#top"><span>{c.mark}</span>{c.label}日和</a><nav><a href="#find">{c.placeType}を探す</a><a href="#guide">はじめてガイド</a><a href="#journal">おすすめ用品</a></nav><a className="saved" href="#find">♡ 保存したお店 <b>{saved.length}</b></a></header>
+  <header className="nav"><a className="brand" href="#top"><span>{c.mark}</span>{c.label}日和</a><nav><a href="#find">{c.placeType}を探す</a><a href="#guide">はじめてガイド</a>{diaryCount>0&&<a href="/diary">訪問日記</a>}<a href="#journal">おすすめ用品</a></nav><a className="saved" href="#find">♡ 保存したお店 <b>{saved.length}</b></a></header>
   <section className="hero" id="top"><div className="hero-copy"><p className="eyebrow">{c.eyebrow}</p><h1>今日は、<br/><em>{c.headline}</em></h1><p className="lead">{c.lead}<br/>{c.sub}</p><div className="hero-actions"><a className="button primary" href="#find">近くの{c.placeType}を探す <span>→</span></a><button className="text-button" onClick={()=>setQuiz(true)}>3つの質問で相性診断</button></div><div className="trust"><span>掲載店は編集部が確認</span><span>ひとり客目線でレビュー</span><span>広告も正直に表示</span></div></div><div className="hero-image" style={{backgroundImage:`linear-gradient(90deg,rgba(31,41,37,.08),transparent),url(${c.hero})`}}><div className="photo-label"><small>EDITOR&apos;S NOTE</small><strong>{c.note}</strong><span>{c.place}</span></div></div></section>
   <section className="search-section" id="find"><div className="section-heading"><div><p className="eyebrow">VERIFIED PLACE DATA</p><h2>実際に行ける、{c.label}のいる場所。</h2></div><p>公式情報は2026年7月15日確認。<br/>料金・営業時間は来店前に再確認してください。</p></div><div className="filters"><div>{areas.map(x=><button key={x} className={area===x?"active":""} onClick={()=>setArea(x)}>{x}</button>)}</div><label><input type="checkbox" checked={quiet} onChange={e=>setQuiet(e.target.checked)}/> ゆっくり過ごせる</label></div><div className="cafe-grid">{shops.map((s,i)=><article className="cafe-card" key={s[0]}><div className="card-image" style={{backgroundImage:`url(${s[5]})`}}><span className="rank">0{i+1}</span><button className={saved.includes(s[0])?"heart on":"heart"} onClick={()=>toggle(s[0])} aria-label={`${s[0]}を保存`}>{saved.includes(s[0])?"♥":"♡"}</button></div><div className="card-body"><div className="meta">{s[1]} ・ {s[3]}</div><h3>{s[0]}</h3><p>{s[4]}</p><p className="address">⌖ {s[6]}</p><div className="review-box"><small>口コミ傾向</small><p>{s[7]}</p><a href={s[9]} target="_blank" rel="noopener noreferrer">レビュー出典を見る ↗</a></div><div className="tags"><span>実在店舗</span><span>{quiet?"ゆっくり過ごせる":"公式確認済み"}</span></div><div className="card-foot"><strong>{s[2]}</strong><a href={s[8]} target="_blank" rel="noopener noreferrer">公式サイト ↗</a></div></div></article>)}</div></section>
   <section className="guide" id="guide"><div className="guide-photo" style={{backgroundImage:`linear-gradient(#0000,#16251c88),url(${c.guideImage})`}}><span>{c.quote}</span></div><div className="guide-copy"><p className="eyebrow">FIRST VISIT GUIDE</p><h2>はじめての日も、<br/>心地よく。</h2><p>{c.guide}</p><ol>{c.tips.map((t,i)=><li key={t[0]}><b>0{i+1}</b><span><strong>{t[0]}</strong>{t[1]}</span></li>)}</ol><a className="button ink" href="#journal">おすすめ用品を見る →</a></div></section>

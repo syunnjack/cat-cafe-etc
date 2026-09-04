@@ -40,3 +40,6 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# tsc が作る中間ファイル
+tsconfig.tsbuildinfo

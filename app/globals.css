@@ -31,3 +31,30 @@
 .portal-about ul { margin: 0 0 1rem; padding-left: 1.2rem; }
 .portal-about li { margin-bottom: .4rem; }
 .portal-about small { opacity: .75; }
+
+/* 訪問日記。自分で撮った写真を主役にするため、写真は幅いっぱいに置く。 */
+.diary{background:var(--paper,#faf8f2);color:var(--ink,#283039);min-height:100vh}
+.diary-head{max-width:760px;margin:0 auto;padding:64px 20px 32px}
+.diary-head h1{font-size:clamp(30px,4vw,44px);font-weight:500;letter-spacing:-.03em;margin:6px 0 18px}
+.diary-head>p{color:var(--muted,#70757a);line-height:2;margin:0 0 18px}
+.diary-back{display:flex;gap:14px;font-size:13px}
+.diary-list{list-style:none;max-width:760px;margin:0 auto;padding:0 20px 48px;display:grid;gap:18px}
+.diary-list a{display:grid;grid-template-columns:132px 1fr;gap:16px;background:#fff;border:1px solid var(--line,#d8d2c8);text-decoration:none;color:inherit}
+.diary-thumb{display:block;background-size:cover;background-position:center;min-height:112px}
+.diary-text{padding:14px 16px 16px;display:grid;gap:6px;align-content:start}
+.diary-text small{font:11px system-ui,sans-serif;color:var(--muted,#70757a);letter-spacing:.02em}
+.diary-text strong{font-size:18px;font-weight:600;line-height:1.5}
+.diary-text>span{font-size:13px;line-height:1.8;color:#4a5158}
+@media(max-width:560px){.diary-list a{grid-template-columns:1fr}.diary-thumb{min-height:180px}}
+.diary-crumbs{max-width:760px;margin:0 auto;padding:22px 20px 0;font:12px system-ui,sans-serif;color:var(--muted,#70757a)}
+.diary-entry{max-width:760px;margin:0 auto;padding:14px 20px 64px}
+.diary-entry h1{font-size:clamp(26px,3.6vw,38px);font-weight:500;line-height:1.45;letter-spacing:-.03em;margin:6px 0 14px}
+.diary-meta{font:12px system-ui,sans-serif;color:var(--muted,#70757a);margin:0 0 18px}
+.diary-lead{background:#fff;border:1px solid var(--line,#d8d2c8);padding:16px 18px;line-height:1.95;margin:0 0 26px}
+.diary-entry>p{line-height:2.05;margin:0 0 20px}
+.diary-photos{display:grid;gap:26px;margin:32px 0}
+.diary-photos figure{margin:0}
+.diary-photos img{width:100%;height:auto;display:block;background:#efeade}
+.diary-photos figcaption{font:12px system-ui,sans-serif;color:var(--muted,#70757a);margin-top:8px;line-height:1.7}
+.diary-foot,.diary-entry-foot{max-width:760px;margin:0 auto;padding:24px 20px 56px;border-top:1px solid var(--line,#d8d2c8);font-size:12px;color:var(--muted,#70757a);line-height:1.9}
+.diary-foot p,.diary-entry-foot p{margin:0 0 8px}
